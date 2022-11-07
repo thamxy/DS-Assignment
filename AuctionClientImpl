@@ -1,0 +1,34 @@
+package client
+
+import java.rmi.RemoteException
+import java.rmi.server.UnicastRemoteObject
+
+abstract class AuctionClientImpl extends UnicastRemoteObject with IAuctionClient {
+  val serialVersionUID : Long = 1L
+  var name : String
+
+  def auctionClientImpl(){
+    super.ref
+    this.name = "Name not set"
+    throw RemoteException
+  }
+
+  def AuctionClientImpl(name: String) {
+    super.ref
+    this.name = name
+  }
+
+  @throws[RemoteException]
+  override def getName: String = name
+
+  def setName(name: String): Unit = {
+    this.name = name
+  }
+
+  @throws[RemoteException]
+  override def callback(message: String): Unit = {
+    System.out.println(message)
+  }
+
+  override def toString: String = name
+}
